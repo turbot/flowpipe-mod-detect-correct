@@ -70,16 +70,19 @@ pipeline "correction_handler" {
     value = (length(param.approvers) > 0)
   }
 
-  step "input" "acquire_input" {
+  step "pipeline" "ask" {
     if       = step.transform.require_input.value
-    type     = "button"
-    notifier = notifier[param.approvers[0]]
-    prompt   = param.detect_msg
-    options  = tolist([ for key in param.enabled_actions : {
-      label = param.actions[key].label
-      value = param.actions[key].value
-      style = param.actions[key].style
-    }])
+    pipeline = pipeline.decision
+    args = {
+      seed     = uuid()
+      prompt   = param.detect_msg
+      notifier = param.approvers[0]
+      options  = tolist([ for key in param.enabled_actions : {
+        label = param.actions[key].label
+        value = param.actions[key].value
+        style = param.actions[key].style
+      }])
+    }
 
     error {
       ignore = true
@@ -87,8 +90,8 @@ pipeline "correction_handler" {
   }
 
   step "transform" "determine_action" {
-    value = ((step.transform.require_input.value && !is_error(step.input.acquire_input)) ?
-      step.input.acquire_input.value :
+    value = ((step.transform.require_input.value && !is_error(step.pipeline.ask)) ?
+      step.pipeline.ask.output.result :
       param.default_action
     )
   }
