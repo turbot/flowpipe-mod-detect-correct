@@ -1,6 +1,6 @@
 pipeline "correction_handler" {
   title       = "Correction Handler"
-  description = "Generic pipeline for handling correction actions for Detect/Correct mods."
+  description = "Generic pipeline for handling correction actions for Detect and Correct mods."
 
   param "notifier" {
     type        = string

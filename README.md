@@ -1,6 +1,6 @@
-# Detect Correct Mod for Flowpipe
+# Detect and Correct Mod for Flowpipe
 
-Detect/Correct pipeline library for [Flowpipe](https://flowpipe.io), enabling writing of standardized detect and correct control flows.
+Detect and Correct pipeline library for [Flowpipe](https://flowpipe.io), enabling writing of standardized detect and correct control flows.
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ cd my_mod
 flowpipe mod init
 ```
 
-[Install the Detect/Correct mod](https://flowpipe.io/docs/build/mod-dependencies#mod-dependencies) as a dependency:
+[Install the Detect and Correct mod](https://flowpipe.io/docs/build/mod-dependencies#mod-dependencies) as a dependency:
 
 ```sh
 flowpipe mod install github.com/turbot/flowpipe-mod-detect-correct
@@ -94,4 +94,4 @@ This repository is published under the [Apache 2.0 license](https://www.apache.o
 Want to help but not sure where to start? Pick up one of the `help wanted` issues:
 
 - [Flowpipe](https://github.com/turbot/flowpipe/labels/help%20wanted)
-- [Detect/Correct Mod](https://github.com/turbot/flowpipe-mod-detect-correct/labels/help%20wanted)
+- [Detect and Correct Mod](https://github.com/turbot/flowpipe-mod-detect-correct/labels/help%20wanted)
