@@ -1,4 +1,7 @@
 pipeline "decision" {
+  title       = "Decision"
+  description = "Allows for obtaining a decision from the provided notifier."
+  
   param "seed" {
     type    = string
     default = uuid()

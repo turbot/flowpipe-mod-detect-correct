@@ -1,4 +1,7 @@
 pipeline "optional_message" {
+  title       = "Optional Message"
+  description = "Sends a message using a notifier if the send parameter is true."
+  
   param "notifier" {
     type        = string
     description = "The notifier to use for sending message"
