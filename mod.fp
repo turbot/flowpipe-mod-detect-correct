@@ -4,7 +4,7 @@ mod "detect_correct" {
   documentation = file("./README.md")
   color         = "#4c82e6"
   icon          = "/images/mods/turbot/detect_and_correct.svg"
-  categories    = [""]
+  categories    = ["public cloud"]
 
   opengraph {
     title       = "Detect and Correct Mod for Flowpipe"
