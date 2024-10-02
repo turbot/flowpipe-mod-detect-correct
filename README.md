@@ -51,7 +51,7 @@ pipeline "my_pipeline" {
           style        = "info"
           pipeline_ref = detect_correct.pipeline.optional_message
           pipeline_args = {
-            notifier = "default"
+            notifier = notifier.default
             send     = false
             text     = "Skipped resolving item ${param.item_id}."
           }
