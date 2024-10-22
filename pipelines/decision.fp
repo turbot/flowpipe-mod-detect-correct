@@ -1,7 +1,7 @@
 pipeline "decision" {
   title       = "Decision"
   description = "Allows for obtaining a decision from the provided notifier."
-  
+
   param "seed" {
     type    = string
     default = uuid()
@@ -20,8 +20,8 @@ pipeline "decision" {
   }
 
   param "notifier" {
-    type    = string
-    default = "default"
+    type    = notifier
+    default = notifier.default
   }
 
   // param "timeout" {
@@ -31,7 +31,7 @@ pipeline "decision" {
 
   step "input" "get_decision" {
     type     = "button"
-    notifier = notifier[param.notifier]
+    notifier = param.notifier
     prompt   = param.prompt
     options  = param.options
     // timeout  = param.timeout

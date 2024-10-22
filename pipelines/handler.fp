@@ -3,9 +3,9 @@ pipeline "correction_handler" {
   description = "Generic pipeline for handling correction actions for Detect and Correct mods."
 
   param "notifier" {
-    type        = string
-    description = "The name of the notifier to use for sending notification messages. Defaults to 'default'"
-    default     = "default"
+    type        = notifier
+    description = "The notifier to use for sending notification messages. Defaults to the default notifier."
+    default     = notifier.default
   }
 
   param "notification_level" {
@@ -13,9 +13,9 @@ pipeline "correction_handler" {
     description = "The verbosity level of notification to send, valid values are 'verbose', 'info', 'error'. Defaults to 'info'."
     default     = "info"
   }
- 
+
   param "approvers" {
-    type        = list(string)
+    type        = list(notifier)
     description = "A list of notifiers to use for decisions/approvals on actions to undertake, if set to an empty list, the 'default_action' will be used as the outcome. Defaults to an empty list."
     default     = []
   }
@@ -35,7 +35,7 @@ pipeline "correction_handler" {
   param "detect_msg" {
     type        = string
     description = "The message to display to approvers when asking for a decision or when simply notifying of detections."
-    default     = "Detected item requiring action." 
+    default     = "Detected item requiring action."
   }
 
   param "actions" {
@@ -56,7 +56,7 @@ pipeline "correction_handler" {
         style         = "info"
         pipeline_ref  = pipeline.optional_message
         pipeline_args = {
-          notifier = "default"
+          notifier = notifier.default
           send     = false
           text     = "Skipped item."
         }
@@ -98,7 +98,7 @@ pipeline "correction_handler" {
 
   step "message" "notify" {
     if       = step.transform.determine_action.value == "notify"
-    notifier = notifier[param.notifier]
+    notifier = param.notifier
     text     = param.detect_msg
   }
 
@@ -110,11 +110,11 @@ pipeline "correction_handler" {
 
   step "message" "action_result" {
     if = (
-      step.transform.determine_action.value != "notify" && 
-      step.transform.determine_action.value != "skip" && 
+      step.transform.determine_action.value != "notify" &&
+      step.transform.determine_action.value != "skip" &&
       (is_error(step.pipeline.action) || param.notification_level != "error")
     )
-    notifier = notifier[param.notifier]
+    notifier = param.notifier
     text     = (is_error(step.pipeline.action) ?
       "${param.actions[step.transform.determine_action.value].error_msg}: ${error_message(step.pipeline.action)}" :
       param.actions[step.transform.determine_action.value].success_msg)
