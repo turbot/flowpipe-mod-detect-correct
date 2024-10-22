@@ -10,4 +10,10 @@ mod "detect_correct" {
     title       = "Detect and Correct Mod for Flowpipe"
     description = "Library to provide shared pipelines for Detect and Correct mods."
   }
+
+  require {
+    flowpipe {
+      min_version = "1.0.0"
+    }
+  }
 }
